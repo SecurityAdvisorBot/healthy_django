@@ -11,7 +11,7 @@ class DjangoDatabaseHealthCheck(HealthCheck):
     required_params = ["connection_name"]
 
     def check(self):
-        db_conn = connections["default"]
+        db_conn = connections[self.params["connection_name"]]
         try:
             c = db_conn.cursor()
             c.execute("select 1")
