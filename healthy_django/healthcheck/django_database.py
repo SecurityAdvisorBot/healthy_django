@@ -18,8 +18,8 @@ class DjangoDatabaseHealthCheck(HealthCheck):
             connected = c.fetchone()[0] == 1
             if not connected:
                 raise ConnectionError
-            return 200
+            return 200, {}
         except OperationalError:
-            return 500
+            return 500, {}
         except BaseException:
-            return 503
+            return 503, {}

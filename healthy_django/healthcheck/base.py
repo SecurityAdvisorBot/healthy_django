@@ -19,12 +19,12 @@ class HealthCheck:
                 raise InvalidParams("Param {0} is required for checking health".format(param))
         self.params = params
 
-    def check(self) -> int:
+    def check(self):
         raise NotImplemented()
 
     def health_status(self):
         cur_time = time.time()
-        health_code = self.check()
+        health_code, health_meta = self.check()
         latency = time.time() - cur_time
         return {
             "name": self.name,
@@ -32,4 +32,5 @@ class HealthCheck:
             "code": health_code,
             "message": self.health_code_pretty.get(health_code, ""),
             "latency": latency,
+            "meta": health_meta,
         }

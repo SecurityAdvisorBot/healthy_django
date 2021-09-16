@@ -15,6 +15,6 @@ class DjangoCacheHealthCheck(HealthCheck):
             cache.set("healthy_django_test", 1)
             if not cache.get("healthy_django_test") == 1:
                 raise ValueError("Cache returned wrong value")
-            return 200
+            return 200, {}
         except BaseException:
-            return 500
+            return 500, {}
