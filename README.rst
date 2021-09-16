@@ -2,21 +2,11 @@
 healthy_django
 =============================
 
-.. image:: https://badge.fury.io/py/healthy_django.svg
-    :target: https://badge.fury.io/py/healthy_django
-
-.. image:: https://travis-ci.org/vigneshhari/healthy_django.svg?branch=master
-    :target: https://travis-ci.org/vigneshhari/healthy_django
-
-.. image:: https://codecov.io/gh/vigneshhari/healthy_django/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/vigneshhari/healthy_django
-
 Simple Re Usable tool for Django Healthchecks
 
 Documentation
 -------------
 
-The full documentation is at https://healthy_django.readthedocs.io.
 
 Quickstart
 ----------
@@ -31,7 +21,7 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        'healthy_django.apps.HealthyDjangoConfig',
+        'healthy_django',
         ...
     )
 
@@ -41,46 +31,40 @@ Add healthy_django's URL patterns:
 
     from healthy_django import urls as healthy_django_urls
 
-
     urlpatterns = [
         ...
-        url(r'^', include(healthy_django_urls)),
+        path("health/", include("healthy_django.urls", namespace="healthy_django")),
         ...
     ]
+
+Add list of healthcheck plugins the currently supported plugins along with their spec
+
+| Django Database Health Check
+
+    Checks if a Database defined in Django is up and running    
+
+| Django Cache Health Check
+
+    Checks if a Cache defined in Django is up and running    
+
+| Redis based Celery Queue Health Check
+
+    Checks if a Celery queue backlog is within given limits 
+
+| AWS SQS Queue Health Check
+
+    Checks if an AWS SQS queue backlog is within given limits     
+
 
 Features
 --------
 
-* TODO
-
-Running Tests
--------------
-
-Does the code actually work?
-
-::
-
-    source <YOURVIRTUALENV>/bin/activate
-    (myenv) $ pip install tox
-    (myenv) $ tox
-
-
-Development commands
----------------------
-
-::
-
-    pip install -r requirements_dev.txt
-    invoke -l
+| Non ORM Based Database Tests
+| RabbitMQ Queue Length Test
+| S3 file test
 
 
 Credits
 -------
 
-Tools used in rendering this package:
-
-*  Cookiecutter_
-*  `cookiecutter-djangopackage`_
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`cookiecutter-djangopackage`: https://github.com/pydanny/cookiecutter-djangopackage
+Made with Love by SecurityAdvisor
