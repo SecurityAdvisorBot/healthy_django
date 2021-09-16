@@ -6,6 +6,9 @@ from django.views import View
 class HealthCheckView(View):
     def get(self, request):
         results = []
+        status_code = 0
         for check in HEALTH_CHECK:
-            results.append(check.health_status())
-        return JsonResponse({"health": results})
+            status = check.health_status()
+            results.append(status)
+            status_code = max(status["code"], status_code)
+        return JsonResponse({"health": results}, status=status_code)
