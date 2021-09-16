@@ -5,23 +5,25 @@ from healthy_django.healthcheck.celery_queue_length import DjangoCeleryQueueLeng
 from healthy_django.healthcheck.sqs_length import AWSSQSQueueHealthCheck
 
 default_configuration = [
-    DjangoDatabaseHealthCheck("Database", connection_name="default"),
-    DjangoCacheHealthCheck("Cache", connection_name="default"),
-    DjangoCeleryQueueLengthHealthCheck(
-        "Celery Queue Length",
-        broker="redis://" + "0.0.0.0" + ":6379",
-        queue_name="celery",
-        info_length=10,
-        warning_length=20,
-        alert_length=30,
-    ),
-    AWSSQSQueueHealthCheck(
-        "AWS SQS Queue Length",
-        queue_url="https://sqs.us-west-2.amazonaws.com/632289439953/sa-analytics-dev-enriched",
-        info_length=10,
-        warning_length=20,
-        alert_length=30,
-    ),
+    # DjangoDatabaseHealthCheck("Database", slug="main_database", connection_name="default"),
+    # DjangoCacheHealthCheck("Cache", slug="main_cache", exclude_main=True, connection_name="default"),
+    # DjangoCeleryQueueLengthHealthCheck(
+    #     "Celery Queue Length",
+    #     slug="celery_queue",
+    #     broker="redis://" + "0.0.0.0" + ":6379",
+    #     queue_name="celery",
+    #     info_length=10,
+    #     warning_length=20,
+    #     alert_length=30,
+    # ),
+    # AWSSQSQueueHealthCheck(
+    #     "AWS SQS Queue Length",
+    #     slug="aws_sqs_length",
+    #     queue_url="",
+    #     info_length=10,
+    #     warning_length=20,
+    #     alert_length=30,
+    # ),
 ]
 
 HEALTH_CHECK = getattr(settings, "HEALTHY_DJANGO", default_configuration)

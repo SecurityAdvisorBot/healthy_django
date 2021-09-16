@@ -7,13 +7,17 @@ class HealthCheck:
     name = ""
     title = ""
     description = ""
+    slug = ""
+    exclude_main = False
     health_code_pretty = {200: "All OK", 500: "Down"}
 
     required_params = []
     params = {}
 
-    def __init__(self, name, **params):
+    def __init__(self, name, slug, exclude_main=False, **params):
         self.name = name
+        self.slug = slug
+        self.exclude_main = exclude_main
         for param in self.required_params:
             if param not in params:
                 raise InvalidParams("Param {0} is required for checking health".format(param))
