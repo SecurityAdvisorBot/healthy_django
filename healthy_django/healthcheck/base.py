@@ -35,6 +35,6 @@ class HealthCheck:
             "title": self.title,
             "code": health_code,
             "message": self.health_code_pretty.get(health_code, ""),
-            "latency": latency,
+            "latency": float("{0:.4f}".format(latency)),
             "meta": health_meta,
         }
