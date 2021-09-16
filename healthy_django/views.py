@@ -38,7 +38,7 @@ class StatusPage(View):
         return super().dispatch(*args, **kwargs)
 
     def get(self, request):
-        return render(request, "index.html")
+        return render(request, "healthy_django/index.html")
 
     def post(self, request):
         results, status_code = get_status()

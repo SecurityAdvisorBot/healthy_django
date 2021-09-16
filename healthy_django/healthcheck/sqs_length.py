@@ -6,7 +6,7 @@ class AWSSQSQueueHealthCheck(HealthCheck):
 
     title = "SQS Queue Length Check"
 
-    required_params = ["queue_url", "info_length", "warning_length", "alert_length"]
+    required_params = ["info_length", "warning_length", "alert_length"]
 
     def check(self):
         from healthy_django.conf import (
@@ -22,6 +22,13 @@ class AWSSQSQueueHealthCheck(HealthCheck):
                 "aws_secret_access_key": HEALTHY_DJANGO_AWS_SECRET,
             }
             sqs_client = boto3.resource("sqs", **client_args)
+            queue_url = None
+            if "queue_url" in self.params:
+                queue_url = self.params["queue_url"]
+            elif "queue_name" in self.params:
+                queue_url = sqs_client.get_queue_url(
+                    QueueName=self.params["queue_name"],
+                )["QueueUrl"]
             queue = sqs_client.Queue(self.params["queue_url"])
             queue_length = int(queue.attributes["ApproximateNumberOfMessages"])
             status = 200
