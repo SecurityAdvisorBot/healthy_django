@@ -1,2 +1,2 @@
-boto3>=1.16.10
+boto3>=1.9.86
 # Additional requirements go here

@@ -29,8 +29,6 @@ Add healthy_django's URL patterns:
 
 .. code-block:: python
 
-    from healthy_django import urls as healthy_django_urls
-
     urlpatterns = [
         ...
         path("health/", include("healthy_django.urls", namespace="healthy_django")),
